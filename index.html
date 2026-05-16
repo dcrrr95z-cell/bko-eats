@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bko Eats - Commande de repas</title>
+    <meta name="theme-color" content="#10a37f" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='75' font-size='80' text-anchor='middle'>🍽</text></svg>" />
+    <link rel="stylesheet" href="styles.css?v=4" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="brand-name">Bko Eats</p>
+          <p class="eyebrow">Livraison maintenant</p>
+          <button class="location-button" type="button" aria-label="Changer l'adresse">
+            <span>Bamako, Mali</span>
+            <span aria-hidden="true">v</span>
+          </button>
+        </div>
+        <button class="icon-button" type="button" id="authButton" aria-label="Profil">SF</button>
+      </section>
+
+      <section class="search-panel">
+        <label class="search-box">
+          <input id="searchInput" type="search" placeholder="Rechercher un plat ou restaurant" />
+        </label>
+        <div class="category-row" id="categoryRow"></div>
+      </section>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Bko Eats</p>
+          <h1>Commande simplement a Bamako.</h1>
+          <p>Restaurants, menus, panier et suivi au meme endroit.</p>
+        </div>
+      </section>
+
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">Selection</p>
+          <h2>Restaurants a Bamako</h2>
+        </div>
+        <button class="text-button" type="button" id="resetButton">Tout voir</button>
+      </section>
+
+      <section class="restaurant-list" id="restaurantList"></section>
+    </main>
+
+    <aside class="cart-panel" id="cartPanel" aria-live="polite">
+      <div class="cart-header">
+        <div>
+          <p class="eyebrow">Commande</p>
+          <h2>Mon panier</h2>
+        </div>
+        <button class="icon-button close-cart" type="button" id="closeCart" aria-label="Fermer le panier">x</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-summary">
+        <div><span>Sous-total</span><strong id="subtotal">0 FCFA</strong></div>
+        <div><span>Livraison</span><strong id="delivery">0 FCFA</strong></div>
+        <div class="total"><span>Total</span><strong id="total">0 FCFA</strong></div>
+        <form class="payment-form" id="paymentForm">
+          <label>
+            Adresse de livraison
+            <input id="deliveryAddress" name="address" type="text" placeholder="Quartier, rue, repere" />
+          </label>
+          <label>
+            Telephone
+            <input id="deliveryPhone" name="phone" type="tel" placeholder="+223 ..." />
+          </label>
+          <label>
+            Paiement
+            <select id="paymentMethod" name="paymentMethod">
+              <option value="cash">Paiement a la livraison</option>
+              <option value="orange-money">Orange Money</option>
+              <option value="wave">Wave</option>
+              <option value="card">Carte bancaire</option>
+            </select>
+          </label>
+        </form>
+        <p class="cart-notice" id="cartNotice"></p>
+        <button class="primary-button" type="button" id="checkoutButton">Valider la commande</button>
+      </div>
+    </aside>
+
+    <button class="floating-cart" type="button" id="openCart">
+      <span>Panier</span>
+      <strong id="cartCount">0</strong>
+    </button>
+
+    <div class="order-modal" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+      <div class="modal-card">
+        <button class="icon-button modal-close" type="button" id="closeModal" aria-label="Fermer">x</button>
+        <div class="success-mark">OK</div>
+        <h2 id="orderTitle">Commande confirmee</h2>
+        <p id="orderMessage">Ton restaurant prepare la commande. Livraison estimee dans 28 minutes.</p>
+        <div class="tracking">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <div class="modal-card account-card">
+        <button class="icon-button modal-close" type="button" id="closeAuthModal" aria-label="Fermer">x</button>
+        <h2 id="authTitle">Mon compte Bko Eats</h2>
+        <p id="authStatus">Connecte-toi pour sauvegarder tes commandes, ton panier et tes avis.</p>
+        <form class="account-form" id="authForm">
+          <label>
+            Nom
+            <input id="authName" name="name" type="text" placeholder="Ton nom" required />
+          </label>
+          <label>
+            Telephone
+            <input id="authPhone" name="phone" type="tel" placeholder="+223 ..." required />
+          </label>
+          <label>
+            Adresse
+            <input id="authAddress" name="address" type="text" placeholder="Quartier, rue, repere" required />
+          </label>
+          <button class="primary-button" type="submit">Enregistrer le compte</button>
+        </form>
+        <div class="order-history" id="orderHistory"></div>
+      </div>
+    </div>
+
+    <script src="app.js?v=4"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+      }
+    </script>
+  </body>
+</html>
